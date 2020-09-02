@@ -38,6 +38,10 @@ Simulation* simulation_init_from_file(char* input_file, bool visualize)
 
   if(visualize)
   {
+    printf("Abriendo la ventana del visualizador...\n");
+    printf("Si logro abrir la ventana, tu programa se caerá silenciosamente :/\n");
+    printf("Si no se abre nada y estás en WSL, asegurate de tener abierto xserver y haber hecho export DISPLAY\n");
+    printf("Si no quieres abrir la ventana, llama al programa con el flag --novis al final\n");
     visualizer_open(height, width, sim -> particle_count);
   }
 

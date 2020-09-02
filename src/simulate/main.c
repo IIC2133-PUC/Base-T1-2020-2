@@ -1,22 +1,31 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "simulation.h"
 #include "../visualizer/visualizer.h"
 
 
 int main(int argc, char** argv) 
 {
-  if (argc != 3) {
-    printf("Modo de uso: %s INPUT OUTPUT\n", argv[0]);
+  // Por defecto se abre la ventana
+  bool visualize = true;
+  if (argc == 4 && !strcmp(argv[3], "--novis"))
+  {
+    visualize = false;  
+  }
+  else if(argc < 3|| argc >= 4)
+  {
+    printf("Modo de uso: %s INPUT OUTPUT [--novis]\n", argv[0]);
     printf("Donde:\n");
     printf("\tINPUT es la ruta al archivo de input que describe la escena\n");
     printf("\tOUTPUT es la ruta al archivo en donde se reportarán las colisiones\n");
+    printf("\tEl flag opcional --novis indica que no se debe abrir la visualización del programa\n");
     // Exit code 1: Programa llamado sin todos los argumentos
     return 1;
   }
   
-  // Inicializa los elementos de la simulación. Abre la ventana.
-  Simulation* sim = simulation_init_from_file(argv[1], true);
+  // Inicializa los elementos de la simulación, y abre la ventana si visualize es true
+  Simulation* sim = simulation_init_from_file(argv[1], visualize);
 
   // El archivo donde iremos reportando las colisiones
   FILE* output_file = fopen(argv[2], "w");

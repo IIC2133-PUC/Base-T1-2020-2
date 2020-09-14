@@ -28,6 +28,7 @@ bool particle_segment_collision(Particle particle, Segment segment)
  */
 void particle_bounce_against_segment(Particle* particle, Segment segment)
 {
+  particle->body.center = vector_add(particle->body.center, vector_scale(particle->velocity, -1));
   particle->velocity = geometry_segment_reflection(particle->velocity, segment);
 }
 
